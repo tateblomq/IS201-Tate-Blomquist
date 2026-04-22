@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeBron Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6e6e6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            color: navy;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        input {
+            padding: 10px;
+            width: 120px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 16px;
+            font-size: 16px;
+            margin: 8px;
+            border: none;
+            border-radius: 8px;
+            background-color: navy;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkred;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .stats {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            color: navy;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>LeBron Number Guessing Game</h1>
+        <p>Guess a number from 1 to 23 to match LeBron’s jersey number theme.</p>
+
+        <input type="number" id="guessInput" min="1" max="23">
+        <button onclick="checkGuess()">Guess</button>
+        <button onclick="restartGame()">Restart</button>
+
+        <div class="message" id="message">Make your first guess.</div>
+        <div class="stats" id="stats">Guesses: 0</div>
+
+        <a href="scratch.html">Back to Scratch Page</a>
+    </div>
+
+    <script>
+        let secretNumber = Math.floor(Math.random() * 23) + 1;
+        let guessCount = 0;
+
+        function checkGuess() {
+            const input = document.getElementById("guessInput");
+            const guess = Number(input.value);
+            const message = document.getElementById("message");
+            const stats = document.getElementById("stats");
+
+            if (guess < 1 || guess > 23 || isNaN(guess)) {
+                message.textContent = "Enter a number between 1 and 23.";
+                return;
+            }
+
+            guessCount++;
+
+            if (guess === secretNumber) {
+                message.textContent = "Correct! You guessed it!";
+            } else if (guess < secretNumber) {
+                message.textContent = "Too low. Try again.";
+            } else {
+                message.textContent = "Too high. Try again.";
+            }
+
+            stats.textContent = "Guesses: " + guessCount;
+            input.value = "";
+        }
+
+        function restartGame() {
+            secretNumber = Math.floor(Math.random() * 23) + 1;
+            guessCount = 0;
+            document.getElementById("message").textContent = "Game reset. Make your first guess.";
+            document.getElementById("stats").textContent = "Guesses: 0";
+            document.getElementById("guessInput").value = "";
+        }
+    </script>
+
+</body>
+</html>
